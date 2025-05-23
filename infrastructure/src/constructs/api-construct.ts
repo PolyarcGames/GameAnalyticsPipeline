@@ -671,7 +671,7 @@ export class ApiConstruct extends Construct {
               GameEventsBatchSchema: {
                 type: "object",
                 title: "Game Analytics Batched Events Schema",
-                required: ["events"],
+                required: ["Events"],
                 properties: {
                   events: {
                     type: "array",
@@ -687,50 +687,79 @@ export class ApiConstruct extends Construct {
                 additionalProperties: false,
                 description: "Game Event sent to the Solution API",
                 required: [
-                  "event_id",
-                  "event_type",
-                  "event_name",
-                  "event_timestamp",
+                  "EventName",
+                  "EventTime"
                 ],
                 properties: {
-                  event_id: {
+                  EventName: {
                     type: "string",
-                    pattern:
-                      "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-                    description:
-                      "A random UUID that uniquely identifies an event.",
+                    description: "Name of the event that occurred"
                   },
-                  event_type: {
+                  DateOffset: {
                     type: "string",
-                    pattern: "^[A-Za-z0-9-_.]+$",
-                    description: "Identifies the type of event",
+                    pattern: "^([+-])([0-9]{2}):([0-9]{2}):([0-9]{2}\\.\\d{3})$",
+                    description: "The offset from the event's timestamp (e.g., +00:00:40.275)"
                   },
-                  event_name: {
+                  PlayerID: {
                     type: "string",
-                    pattern: "^[A-Za-z0-9-_.]+$",
-                    description: "Name of the event that occurred",
+                    description: "The unique identifier for the player"
                   },
-                  event_version: {
+                  Category: {
                     type: "string",
-                    pattern: "^[A-Za-z0-9-_.]+$",
-                    description: "An API version for this event format.",
+                    description: "The category of the event (e.g., 'cosmetic', 'matches')"
                   },
-                  app_version: {
+                  Group: {
                     type: "string",
-                    pattern: "^[A-Za-z0-9-_.]+$",
-                    description:
-                      "Version identifier for the application that generated the event",
+                    description: "Grouping of the event (e.g., 'session')"
                   },
-                  event_timestamp: {
-                    type: "number",
-                    description:
-                      "The time in seconds since the Unix epoch at which this event occurred (set by producer of event).",
+                  ActionSubjectID: {
+                    type: "string",
+                    description: "ID of the action subject"
                   },
-                  event_data: {
-                    type: "object",
+                  ActionObjectID: {
+                    type: "string",
+                    description: "ID of the action object"
                   },
-                },
-              },
+                  PropertyLabel: {
+                    type: "string",
+                    description: "The label for the event's property (e.g., 'skin_choice')"
+                  },
+                  SessionID: {
+                    type: "string",
+                    description: "The session identifier associated with the event"
+                  },
+                  PropertyValue: {
+                    type: "string",
+                    description: "The value for the property (e.g., 'True', 'Bodyguard_Base')"
+                  },
+                  IdProvider: {
+                    type: "string",
+                    description: "Identifier for the ID provider (e.g., 'Legacy')"
+                  },
+                  NetMode: {
+                    type: "string",
+                    description: "The network mode (e.g., 'Client', 'Server')"
+                  },
+                  BuildNumber: {
+                    type: "string",
+                    description: "Build number of the game"
+                  },
+                  MatchType: {
+                    type: "string",
+                    description: "Type of match (e.g., 'AI', 'Player')"
+                  },
+                  MMR: {
+                    type: "string",
+                    description: "Matchmaking Rating for the player"
+                  },
+                  EventTime: {
+                    type: "string",
+                    format: "date-time",
+                    description: "The timestamp for when the event occurred (ISO 8601)"
+                  }
+                }
+              }
+              ,
             },
             securitySchemes: {
               lambda_authorizer: {
