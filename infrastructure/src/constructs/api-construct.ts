@@ -570,6 +570,7 @@ export class ApiConstruct extends Construct {
                     {
                       "StreamName": "${props.gameEventsStream.streamName}",
                       "Records": [
+                        #set($sessionId = $input.params().querystring.SessionID)
                         #set($i = 0)
                         #foreach($event in $input.path('$.Events'))
                           #set($data = $input.json("$.Events[$i]"))
@@ -582,7 +583,7 @@ export class ApiConstruct extends Construct {
                           }" )
                           {
                             "Data": "$util.base64Encode($output)",
-                            "PartitionKey": "$event.event_id"
+                            "PartitionKey": "$sessionId"
                           }#if($foreach.hasNext),#end
                           #set($i = $i + 1)
                         #end
