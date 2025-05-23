@@ -571,8 +571,8 @@ export class ApiConstruct extends Construct {
                       "StreamName": "${props.gameEventsStream.streamName}",
                       "Records": [
                         #set($i = 0)
-                        #foreach($event in $input.path('$.events'))
-                          #set($data = $input.json("$.events[$i]"))
+                        #foreach($event in $input.path('$.Events'))
+                          #set($data = $input.json("$.Events[$i]"))
                           #set($output = "{
                             ""event"": $data,
                             ""aws_ga_api_validated_flag"": true,
